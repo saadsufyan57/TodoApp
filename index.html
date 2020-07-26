@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ToDo App</title>
+	<link rel="stylesheet" href="animate.css">
+<style>
+*{
+	padding: 0px;
+	margin: 0px;
+}
+body{
+	background-image: url('bg1.jpg');
+	background-size: cover;
+}
+#ipt{
+
+	width: 500px ;
+	height: 20px;
+    text-align: center;
+	border-top-left-radius: 100px;
+	border-bottom-left-radius:100px; 
+	padding: 10px;
+}	
+#ipt:focus{
+	border-color: black;
+	box-shadow:0px 6px 27px -6px cyan;
+}
+#btn{
+
+	width: 100px ;
+	height: 44px ;
+	padding: 10px;
+	margin-left:-5px;
+	background-color: transparent;
+	border-color: white;
+	font-weight: bolder;
+	color: white;
+}
+.style{
+	/*border:1px solid;*/
+	padding:10px;
+	padding-left: 50px;
+	margin-right: 37px;
+	margin-bottom: 40px;
+	background-color: #ffffffbf;
+	box-shadow: 0px 2px 14px -1px red;
+}
+#txt{
+	width: 621px;
+    height: 37px;
+    border-radius: 100px;
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#txt:focus{
+	border-color: black;
+	box-shadow:0px 6px 27px -6px cyan;
+}
+.img{
+	display: none;
+}
+#img{
+
+	width: 70px;
+    height: 70px;
+    float: right;
+    margin-top: -37px;
+    margin-right: 30px;
+
+
+}
+#img1{
+
+	width: 70px;
+    height: 70px;
+    float: right;
+    margin-top: -37px;
+    margin-right: 30px;
+
+
+}
+p{
+	width: 1000px;
+	margin: 10px 0px 10px 0px;
+
+}
+#btn1{
+	width: 100px;
+    padding: 5px;
+    background-color: transparent;
+    border-color: black;
+    margin-right: 10px;
+	font-weight: bolder;
+
+
+}
+
+#btn2{
+	width: 100px;
+    padding: 5px;
+    background-color: transparent;
+    border-color: black;
+	font-weight: bolder;
+	margin-right: 10px;
+}
+#btn1:hover{
+	background-color: gray;
+	color: white;
+}
+#btn2:hover{
+	background-color: gray;
+	color: white;
+}
+#footer{
+
+	background-color: #0e0e0eb8;
+	color: white;	
+	text-align: center;
+	padding: 5px;
+	padding-left: 180px;
+	margin-top: 381px;
+}
+</style>
+
+</head>
+<body>
+	
+	<div id="wrapper">
+		<div id="container">
+			
+			<center>
+
+			<div id="header">
+				
+				<h1 style="color: white;margin-top: 20px;margin-bottom: 20px;">To-Do App</h1>	
+
+			</div>
+
+				
+				<input type="text" id="ipt" placeholder="Task">
+				<input type="submit" id="btn" value="SAVE" onClick="task(document.getElementById('ipt').value)">
+				<br>
+				<input type="text" id="txt" placeholder="Discription">
+			
+			</center>
+
+			<div onclick="remove(event)"><ol id="list" style="margin-left: 35px;"></ol></div>
+
+
+			<div id="footer"><p>Made by: <b style="letter-spacing: 1px;">Muhammad Saad Sufyan</b></p></div>
+
+
+
+		</div>
+	</div>
+
+
+
+
+
+<script>
+	
+var count = 0;	
+
+function task(x){
+
+if(x!=''){
+	var a = document.getElementById('list');
+
+	var d = document.createElement("div");
+	
+	var time = document.createElement("span");
+	
+	var d1 = document.createElement("div");
+	
+	var b = document.createElement("b");
+	
+	var img = document.createElement("img");
+
+	var btn1 = document.createElement("input");
+	
+	var btn2 = document.createElement("input");
+
+	var lst = document.createElement("li");
+	
+	var p = document.createElement("p");
+
+	d.setAttribute('id','items-'+count);
+	d.setAttribute('class','style animated zoomIn');
+	
+	btn1.setAttribute('id','btn1');
+	btn1.setAttribute('onClick','done()');
+	btn1.setAttribute('type','submit');
+	btn1.setAttribute('value','Done');
+	
+	btn2.setAttribute('id','btn2');
+	btn2.setAttribute('onClick','pending()');
+	btn2.setAttribute('type','submit');
+	btn2.setAttribute('value','Pending');
+	
+	time.setAttribute('id','time');
+
+
+	img.setAttribute('id','img');
+	img.setAttribute('class','img');
+
+
+	var txt = document.createTextNode(x);
+	var txt1 = document.createTextNode(document.getElementById('txt').value);
+	
+	a.appendChild(d);
+	
+	d.appendChild(lst);
+	
+	d.appendChild(img);
+
+	d.appendChild(btn1);
+	
+	d.appendChild(btn2);
+
+	d.appendChild(time);
+
+	lst.appendChild(b);
+	
+	b.appendChild(txt);
+	
+	lst.appendChild(p)
+	
+	p.appendChild(txt1);
+
+	var d = new Date();
+    var t = d.toLocaleTimeString();
+    var ab = d.toDateString();
+    var tm = document.createTextNode(t+' '+ab);
+	
+	time.appendChild(tm);
+
+	count++;
+
+	document.getElementById('ipt').value = '';
+	document.getElementById('txt').value = '';
+
+}else{
+	alert('Text Field is Empty!');
+}
+
+}
+
+function remove(event){
+
+
+var x = event.target.getAttribute("id")
+var a = document.getElementById('list');
+var b = a.childNodes[x.slice(6)];
+a.removeChild(b);
+count--;
+
+}
+
+function done(){
+
+	document.getElementById('img').src='tick.png';
+	document.getElementById('img').className = "animated zoomIn";
+	document.getElementById('img').id='img1';
+
+
+}
+function pending(){
+	
+	document.getElementById('img').src='cross.png'
+	document.getElementById("img").className = "animated zoomIn";
+	document.getElementById('img').id='img';
+
+	
+
+}
+
+</script>
+</body>
+</html>
